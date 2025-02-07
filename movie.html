@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Просмотр фильма</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 id="movie-title"></h1>
+    <iframe id="player" width="800" height="450" allowfullscreen></iframe>
+    <a href="index.html">Назад</a>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('movie-title').textContent = urlParams.get('title');
+        document.getElementById('player').src = urlParams.get('video');
+    </script>
+</body>
+</html>

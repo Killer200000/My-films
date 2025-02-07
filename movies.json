@@ -1,0 +1,87 @@
+[
+    {
+        "title": "Интерстеллар",
+        "poster": "images/interstellar.jpg",
+        "video": "https://pixeldrain.com/api/file/5zvLckE4"
+    },
+    {
+        "title": "Начало",
+        "poster": "images/inception.jpg",
+        "video": "https://example.com/inception.mp4"
+    },
+    {
+        "title": "Игра престолов (Сезон 1)",
+        "poster": "images/got_s1.jpg",
+        "episodes": [
+            "https://pixeldrain.com/api/file/HH8FeXNu",
+            "https://pixeldrain.com/api/file/RxnWywZm",
+            "https://pixeldrain.com/api/file/9GEe9Vye",
+	    "https://pixeldrain.com/api/file/7KHrBTTf",
+	    "https://pixeldrain.com/api/file/TXPpbwJK",
+	    "https://pixeldrain.com/api/file/tiNQBMsT"
+        ]
+    },
+    {
+        "title": "Игра престолов (Сезон 2)",
+        "poster": "images/got_s2.jpg",
+        "episodes": [
+            "https://pixeldrain.com/api/file/s2e1.mp4",
+            "https://pixeldrain.com/api/file/s2e2.mp4",
+            "https://pixeldrain.com/api/file/s2e3.mp4"
+        ]
+    },
+    {
+        "title": "Игра престолов (Сезон 3)",
+        "poster": "images/got_s3.jpg",
+        "episodes": [
+            "https://pixeldrain.com/api/file/s3e1.mp4",
+            "https://pixeldrain.com/api/file/s3e2.mp4",
+            "https://pixeldrain.com/api/file/s3e3.mp4"
+        ]
+    },
+    {
+        "title": "Игра престолов (Сезон 4)",
+        "poster": "images/got_s4.jpg",
+        "episodes": [
+            "https://pixeldrain.com/api/file/s4e1.mp4",
+            "https://pixeldrain.com/api/file/s4e2.mp4",
+            "https://pixeldrain.com/api/file/s4e3.mp4"
+        ]
+    },
+    {
+        "title": "Игра престолов (Сезон 5)",
+        "poster": "images/got_s5.jpg",
+        "episodes": [
+            "https://pixeldrain.com/api/file/s5e1.mp4",
+            "https://pixeldrain.com/api/file/s5e2.mp4",
+            "https://pixeldrain.com/api/file/s5e3.mp4"
+        ]
+    },
+    {
+        "title": "Игра престолов (Сезон 6)",
+        "poster": "images/got_s6.jpg",
+        "episodes": [
+            "https://pixeldrain.com/api/file/s6e1.mp4",
+            "https://pixeldrain.com/api/file/s6e2.mp4",
+            "https://pixeldrain.com/api/file/s6e3.mp4"
+        ]
+    },
+    {
+        "title": "Игра престолов (Сезон 7)",
+        "poster": "images/got_s7.jpg",
+        "episodes": [
+            "https://pixeldrain.com/api/file/s7e1.mp4",
+            "https://pixeldrain.com/api/file/s7e2.mp4",
+            "https://pixeldrain.com/api/file/s7e3.mp4"
+        ]
+    },
+    {
+        "title": "Игра престолов (Сезон 8)",
+        "poster": "images/got_s8.jpg",
+        "episodes": [
+            "https://pixeldrain.com/api/file/s8e1.mp4",
+            "https://pixeldrain.com/api/file/s8e2.mp4",
+            "https://pixeldrain.com/api/file/s8e3.mp4"
+        ]
+    }
+]
