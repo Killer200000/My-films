@@ -63,7 +63,7 @@ function openPlayer(movieIndex, episodeIndex = 0) {
 
     console.log("Запуск видео:", videoSrc);
 
-    // Очищаем и устанавливаем новое видео в Plyr
+    // Устанавливаем новое видео в Plyr
     player.source = {
         type: 'video',
         sources: [{ src: videoSrc, type: 'video/mp4' }]
