@@ -13,6 +13,17 @@ h1 {
     margin: 20px 0;
 }
 
+/* Поле поиска */
+#search-input {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 /* Контейнер фильмов */
 .container {
     display: flex;
@@ -54,7 +65,7 @@ h1 {
 
 /* Кнопка "Смотреть" */
 .watch-button {
-    background: #ff9800;
+    background: #ff8c42;
     color: white;
     border: none;
     padding: 10px;
@@ -66,7 +77,7 @@ h1 {
 }
 
 .watch-button:hover {
-    background: #e68900;
+    background: #e07b36;
 }
 
 /* Контейнер видеоплеера */
@@ -83,13 +94,6 @@ h1 {
     max-width: 900px;
 }
 
-/* Видеоплеер */
-.video-js {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
 /* Кнопка закрытия плеера */
 .close-button {
     display: block;
@@ -102,13 +106,4 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
-}
-
-.close-button:hover {
-    background: darkred;
-}
-
-/* Скрываем видеоплеер по умолчанию */
-.hidden {
-    display: none;
 }
