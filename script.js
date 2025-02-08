@@ -47,28 +47,37 @@ function loadMovies() {
 
 function openPlayer(movieIndex, episodeIndex = 0) {
     const videoContainer = document.getElementById("video-container");
-    const videoSource = document.getElementById("video-source");
-
     const movie = movies[movieIndex];
 
-    if (movie.video) {
-        videoSource.src = movie.video;
-    } else if (movie.episodes) {
-        videoSource.src = movie.episodes[episodeIndex];
-
-        // Автоматический переход на следующую серию
-        player.on("ended", () => {
-            if (episodeIndex < movie.episodes.length - 1) {
-                openPlayer(movieIndex, episodeIndex + 1);
-            } else {
-                alert("Сезон завершён!");
-            }
-        });
-    } else {
+    if (!movie || (!movie.video && !movie.episodes)) {
         alert("Ошибка: Видео не найдено!");
         return;
     }
 
+    let videoSrc = movie.video ? movie.video : movie.episodes[episodeIndex];
+
+    if (!videoSrc) {
+        alert("Ошибка: Неверный источник видео!");
+        return;
+    }
+
+    // Устанавливаем новое видео в Plyr
+    player.source = {
+        type: 'video',
+        sources: [{ src: videoSrc, type: 'video/mp4' }]
+    };
+
+    videoContainer.classList.remove("hidden");
+    player.play();
+
+    console.log("Запуск видео:", videoSrc);
+
+    // Автопереход на следующую серию
+    player.off("ended"); // Удаляем предыдущие обработчики
+    if (movie.episodes && episodeIndex < movie.episodes.length - 1) {
+        player.on("ended", () => openPlayer(movieIndex, episodeIndex + 1));
+    }
+}
     // Очищаем предыдущие источники перед установкой нового
     player.source = {
         type: 'video',
