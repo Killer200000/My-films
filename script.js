@@ -79,12 +79,16 @@ function openPlayer(movieIndex, episodeIndex = 0) {
     player.play();
 }
 
-// Функция закрытия плеера
+// Функция закрытия плеера (исправленная версия)
 function closePlayer() {
     const videoContainer = document.getElementById("video-container");
 
-    player.pause();
-    player.source = { type: 'video', sources: [] }; // Очищаем видео
+    player.stop(); // Полностью останавливаем видео
+    player.source = {
+        type: 'video',
+        sources: [{ src: "", type: "video/mp4" }] // Очищаем источник, но не ломаем Plyr
+    };
+
     videoContainer.classList.add("hidden");
 }
 
