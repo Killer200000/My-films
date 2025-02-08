@@ -63,7 +63,7 @@ function openPlayer(movieIndex, episodeIndex = 0) {
 
     console.log("Запуск видео:", videoSrc);
 
-    // Устанавливаем новое видео в Plyr
+    // Очищаем и устанавливаем новое видео в Plyr
     player.source = {
         type: 'video',
         sources: [{ src: videoSrc, type: 'video/mp4' }]
@@ -73,30 +73,20 @@ function openPlayer(movieIndex, episodeIndex = 0) {
     player.play();
 
     // Автопереход на следующую серию
-    player.off("ended");
+    player.off("ended"); // Удаляем старые обработчики
     if (movie.episodes && episodeIndex < movie.episodes.length - 1) {
         player.on("ended", () => openPlayer(movieIndex, episodeIndex + 1));
     }
 }
 
-    // Очищаем предыдущие источники перед установкой нового
-    player.source = {
-        type: 'video',
-        sources: [{ src: videoSource.src, type: 'video/mp4' }]
-    };
-
-    videoContainer.classList.remove("hidden");
-    player.play();
-}
-
-// Функция закрытия плеера (исправленная версия)
+// Функция закрытия плеера
 function closePlayer() {
     const videoContainer = document.getElementById("video-container");
 
     player.stop(); // Полностью останавливаем видео
     player.source = {
         type: 'video',
-        sources: [{ src: "", type: "video/mp4" }] // Очищаем источник, но не ломаем Plyr
+        sources: [] // Полностью очищаем источник
     };
 
     videoContainer.classList.add("hidden");
