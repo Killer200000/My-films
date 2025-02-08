@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-     <!-- Подключение стилей и скриптов Video.js -->
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.6.0/video-js.min.css" rel="stylesheet">
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.6.0/video.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фильмотека</title>
+    
+    <!-- Подключаем Plyr.js -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
     <link rel="stylesheet" href="style.css">
-    <!-- Подключаем Video.js -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.6.0/video-js.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.6.0/video.min.js"></script>
 </head>
 <body>
     <h1>🎬 Фильмотека</h1>
-    
+
+    <input type="text" id="search-input" placeholder="🔍 Поиск фильмов..." oninput="filterMovies()">
+
     <div class="container" id="movies-container"></div>
 
     <!-- Плеер -->
     <div id="video-container" class="hidden">
-        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" width="800" height="450">
+        <video id="player" class="plyr" controls poster="poster.jpg">
             <source id="video-source" src="" type="video/mp4">
         </video>
         <button class="close-button" onclick="closePlayer()">Закрыть</button>
     </div>
 
+    <!-- Подключаем Plyr.js и наш скрипт -->
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
