@@ -107,3 +107,10 @@ h1 {
     cursor: pointer;
     width: 100%;
 }
+#video-container {
+    display: none;
+}
+
+#video-container:not(.hidden) {
+    display: block;
+}
