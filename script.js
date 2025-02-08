@@ -61,6 +61,8 @@ function openPlayer(movieIndex, episodeIndex = 0) {
         return;
     }
 
+    console.log("Запуск видео:", videoSrc);
+
     // Устанавливаем новое видео в Plyr
     player.source = {
         type: 'video',
@@ -70,14 +72,13 @@ function openPlayer(movieIndex, episodeIndex = 0) {
     videoContainer.classList.remove("hidden");
     player.play();
 
-    console.log("Запуск видео:", videoSrc);
-
     // Автопереход на следующую серию
-    player.off("ended"); // Удаляем предыдущие обработчики
+    player.off("ended");
     if (movie.episodes && episodeIndex < movie.episodes.length - 1) {
         player.on("ended", () => openPlayer(movieIndex, episodeIndex + 1));
     }
 }
+
     // Очищаем предыдущие источники перед установкой нового
     player.source = {
         type: 'video',
