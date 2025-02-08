@@ -69,6 +69,7 @@ function openPlayer(movieIndex, episodeIndex = 0) {
         return;
     }
 
+    // Очищаем предыдущие источники перед установкой нового
     player.source = {
         type: 'video',
         sources: [{ src: videoSource.src, type: 'video/mp4' }]
@@ -78,10 +79,12 @@ function openPlayer(movieIndex, episodeIndex = 0) {
     player.play();
 }
 
+// Функция закрытия плеера
 function closePlayer() {
     const videoContainer = document.getElementById("video-container");
 
     player.pause();
+    player.source = { type: 'video', sources: [] }; // Очищаем видео
     videoContainer.classList.add("hidden");
 }
 
