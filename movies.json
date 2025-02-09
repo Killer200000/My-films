@@ -10,6 +10,11 @@
         "video": "https://example.com/inception.mp4"
     },
     {
+        "title": "Титаник (1997)",
+        "poster": "images/titanic.jpg",
+        "video": "https://example.com/inception.mp4"
+    },
+    {
         "title": "Игра престолов (Сезон 1)",
         "poster": "images/got_s1.jpg",
         "episodes": [
