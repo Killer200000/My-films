@@ -3,27 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фильмотека</title>
-    
-    <!-- Подключаем Plyr.js -->
+    <title>КиноСайт</title>
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: Arial, sans-serif; background: #121212; color: white; text-align: center; margin: 0; padding: 0; }
+        .search-bar { margin: 20px; padding: 10px; width: 90%; max-width: 500px; border-radius: 5px; border: none; outline: none; font-size: 16px; }
+        .button-container { margin: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 10px rgba(255, 126, 95, 0.5);
+        }
+        .movie-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .movie { padding: 10px; background: #1e1e1e; border-radius: 10px; cursor: pointer; width: 160px; transition: transform 0.3s ease; }
+        .movie:hover { transform: scale(1.1); }
+        .movie img { width: 100%; border-radius: 5px; }
+        .movie-title { font-size: 14px; margin-top: 5px; }
+        .player-container { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 800px; background: #222; padding: 20px; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); }
+        .player-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+        .close-button { cursor: pointer; padding: 10px 15px; background: red; color: white; border: none; border-radius: 5px; position: absolute; bottom: 10px; right: 10px; }
+        .episode-selector { display: none; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+        .episode { cursor: pointer; padding: 5px 10px; background: #444; border-radius: 5px; transition: background 0.3s ease; }
+        .episode:hover { background: #666; }
+    </style>
 </head>
 <body>
-    <h1>🎬 Фильмотека</h1>
-
-    <input type="text" id="search-input" placeholder="🔍 Поиск фильмов..." oninput="filterMovies()">
-
-    <div class="container" id="movies-container"></div>
-
-    <!-- Плеер -->
-    <div id="video-container" class="hidden">
-        <video id="player" class="plyr" controls poster="poster.jpg"></video>
+    <h1>КиноСайт</h1>
+    <div class="button-container">
+        <button class="button" onclick="filterContent('movies')">Фильмы</button>
+        <button class="button" onclick="filterContent('series')">Сериалы</button>
+    </div>
+    <input type="text" id="search" class="search-bar" placeholder="Поиск фильмов...">
+    <div id="movies" class="movie-container"></div>
+    <div id="playerContainer" class="player-container">
+        <video id="videoPlayer" class="plyr" controls></video>
+        <div id="episodeSelector" class="episode-selector"></div>
         <button class="close-button" onclick="closePlayer()">Закрыть</button>
     </div>
-
-    <!-- Подключаем Plyr.js и наш скрипт -->
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
-    <script src="script.js"></script>
+    <script>
+        let movies = [];
+        let currentSeries = null;
+        let currentEpisodeIndex = 0;
+        let currentSeasonIndex = -1;
+        fetch('movies.json')
+            .then(response => response.json())
+            .then(data => {
+                movies = data;
+                displayMovies(movies);
+            });
+        
+        function displayMovies(movieList) {
+            const container = document.getElementById('movies');
+            container.innerHTML = '';
+            movieList.forEach(movie => {
+                const movieEl = document.createElement('div');
+                movieEl.classList.add('movie');
+                movieEl.innerHTML = `<img src="${movie.poster}" alt="${movie.title}" onclick="selectMovie('${movie.title}')">` +
+                                    `<div class="movie-title">${movie.title}</div>`;
+                container.appendChild(movieEl);
+            });
+        }
+        
+        function selectMovie(title) {
+            currentSeries = movies.find(movie => movie.title === title);
+            const episodeSelector = document.getElementById('episodeSelector');
+            if (currentSeries && currentSeries.video) {
+                episodeSelector.style.display = 'none';
+                playMovie(currentSeries.video);
+            } else if (currentSeries && currentSeries.episodes) {
+                currentEpisodeIndex = 0;
+                currentSeasonIndex = movies.indexOf(currentSeries);
+                displayEpisodes(currentSeries);
+                playMovie(currentSeries.episodes[currentEpisodeIndex]);
+                episodeSelector.style.display = 'flex';
+            }
+        }
+        
+        function displayEpisodes(series) {
+            const container = document.getElementById('episodeSelector');
+            container.innerHTML = '';
+            series.episodes.forEach((episode, index) => {
+                const episodeEl = document.createElement('div');
+                episodeEl.classList.add('episode');
+                episodeEl.textContent = `Серия ${index + 1}`;
+                episodeEl.onclick = () => {
+                    currentEpisodeIndex = index;
+                    playMovie(episode);
+                };
+                container.appendChild(episodeEl);
+            });
+        }
+        
+        function playMovie(url) {
+            if (!url) return;
+            const playerContainer = document.getElementById('playerContainer');
+            const video = document.getElementById('videoPlayer');
+            video.src = url;
+            playerContainer.style.display = 'block';
+            video.play();
+            new Plyr(video);
+        }
+        
+        function closePlayer() {
+            document.getElementById('playerContainer').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
