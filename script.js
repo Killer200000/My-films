@@ -19,17 +19,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             fullscreen: { enabled: true, fallback: true, iosNative: true },
             ratio: '16:9'
         });
-
     } catch (error) {
         console.error("Ошибка загрузки фильмов:", error);
     }
 });
 
-function loadMovies() {
+function loadMovies(filteredMovies = movies) {
     const container = document.getElementById("movies-container");
     container.innerHTML = "";
 
-    movies.forEach((movie, index) => {
+    filteredMovies.forEach((movie, index) => {
         const movieDiv = document.createElement("div");
         movieDiv.classList.add("movie");
 
@@ -42,7 +41,7 @@ function loadMovies() {
         container.appendChild(movieDiv);
     });
 
-    console.log("Список фильмов загружен:", movies);
+    console.log("Список фильмов загружен:", filteredMovies);
 }
 
 function openPlayer(movieIndex, episodeIndex = 0) {
@@ -95,10 +94,15 @@ function closePlayer() {
 // Фильтр фильмов (поиск)
 function filterMovies() {
     const searchQuery = document.getElementById("search-input").value.toLowerCase();
-    const moviesDivs = document.querySelectorAll(".movie");
+    let filteredMovies;
 
-    moviesDivs.forEach(movieDiv => {
-        const title = movieDiv.querySelector(".movie-title").textContent.toLowerCase();
-        movieDiv.style.display = title.includes(searchQuery) ? "block" : "none";
-    });
+    if (searchQuery === "сериалы") {
+        filteredMovies = movies.filter(movie => movie.episodes); // Только сериалы
+    } else if (searchQuery === "стетхем") {
+        filteredMovies = movies.filter(movie => movie.actors && movie.actors.toLowerCase().includes("стетхем"));
+    } else {
+        filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(searchQuery));
+    }
+
+    loadMovies(filteredMovies);
 }
