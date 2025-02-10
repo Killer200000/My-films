@@ -3,25 +3,21 @@
         "title": "Интерстеллар",
         "poster": "images/interstellar.jpg",
         "video": "https://pixeldrain.com/api/file/5zvLckE4"
-	"actors": []
     },
     {
         "title": "Начало",
         "poster": "images/inception.jpg",
         "video": "https://example.com/inception.mp4"
-	"actors": []
     },
     {
         "title": "Титаник (1997)",
         "poster": "images/titanic.jpg",
         "video": "https://pixeldrain.com/api/file/6stVdHq5"
-	"actors": []
     },
     {
         "title": "Карты, деньги, два ствола (1998)",
         "poster": "images/karty_dengi.jpeg",
         "video": "https://pixeldrain.com/api/file/ePhX6wmH"
-        "actors": ["Джейсон Стэтхем", "Винни Джонс", "Декстер Флетчер"]
     },
     {
         "title": "Игра престолов (Сезон 1)",
