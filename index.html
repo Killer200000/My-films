@@ -30,7 +30,7 @@
         .movie-title { font-size: 14px; margin-top: 5px; }
         .player-container { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 800px; background: #222; padding: 20px; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); }
         .player-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; }
-        .close-button { cursor: pointer; padding: 10px 15px; background: red; color: white; border: none; border-radius: 5px; position: absolute; bottom: 10px; right: 10px; }
+        .close-button { cursor: pointer; padding: 10px 15px; background: red; color: white; border: none; border-radius: 5px; position: absolute; bottom: -50px; right: 10px; }
         .episode-selector { display: none; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
         .episode { cursor: pointer; padding: 5px 10px; background: #444; border-radius: 5px; transition: background 0.3s ease; }
         .episode:hover { background: #666; }
@@ -52,9 +52,6 @@
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
     <script>
         let movies = [];
-        let currentSeries = null;
-        let currentEpisodeIndex = 0;
-        let currentSeasonIndex = -1;
         fetch('movies.json')
             .then(response => response.json())
             .then(data => {
@@ -74,18 +71,24 @@
             });
         }
         
+        function filterContent(type) {
+            if (type === 'movies') {
+                displayMovies(movies.filter(movie => movie.video));
+            } else if (type === 'series') {
+                displayMovies(movies.filter(movie => movie.episodes));
+            }
+        }
+        
         function selectMovie(title) {
-            currentSeries = movies.find(movie => movie.title === title);
+            let selectedMovie = movies.find(movie => movie.title === title);
             const episodeSelector = document.getElementById('episodeSelector');
-            if (currentSeries && currentSeries.video) {
+            if (selectedMovie.video) {
                 episodeSelector.style.display = 'none';
-                playMovie(currentSeries.video);
-            } else if (currentSeries && currentSeries.episodes) {
-                currentEpisodeIndex = 0;
-                currentSeasonIndex = movies.indexOf(currentSeries);
-                displayEpisodes(currentSeries);
-                playMovie(currentSeries.episodes[currentEpisodeIndex]);
+                playMovie(selectedMovie.video);
+            } else if (selectedMovie.episodes) {
                 episodeSelector.style.display = 'flex';
+                displayEpisodes(selectedMovie);
+                playMovie(selectedMovie.episodes[0]);
             }
         }
         
@@ -96,10 +99,7 @@
                 const episodeEl = document.createElement('div');
                 episodeEl.classList.add('episode');
                 episodeEl.textContent = `Серия ${index + 1}`;
-                episodeEl.onclick = () => {
-                    currentEpisodeIndex = index;
-                    playMovie(episode);
-                };
+                episodeEl.onclick = () => playMovie(episode);
                 container.appendChild(episodeEl);
             });
         }
